@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "One-way transfer kernels: exchange non-Hermiticity and a proposed time-domain test in a recirculating fiber loop"
+authors:
+  - family-names: "Monnerot"
+    given-names: "Anthony"
+type: software
+license: MIT
+abstract: >-
+  A theoretical and numerical study of when the anti-holomorphic dependence of a
+  two-point transfer kernel is forced by open-system dynamics rather than
+  removable by gauge, basis, or preparation. One-way coupling between
+  counter-winding mode ladders yields a Lerch-transcendent kernel whose
+  exchange-Hermitian mirror partner is absent; a recirculating-fiber-loop
+  measurement is proposed. All claims are at the level of symbolic certification
+  and numerical simulation; no experimental measurement has been performed.
+keywords:
+  - anti-holomorphic
+  - non-reciprocity
+  - transfer kernel
+  - Lerch transcendent
+  - exchange non-Hermiticity
+  - eml-star
+references:
+  - type: article
+    title: "Detecting anti-holomorphic dynamics via symbolic regression with the eml-star operator"
+    authors:
+      - family-names: "Monnerot"
+        given-names: "Anthony"
+    doi: "10.5281/zenodo.20272784"
+    scope: "This work is derived from and extends the eml-star program."

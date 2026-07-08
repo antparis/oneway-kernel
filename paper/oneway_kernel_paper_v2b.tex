@@ -1,0 +1,793 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage[margin=2.7cm]{geometry}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+
+\newcommand{\zb}{\bar{z}}
+\newcommand{\wb}{\bar{w}}
+\newcommand{\zbone}{\bar{z}_1}
+\newcommand{\wbtwo}{\bar{w}_2}
+
+\title{\bfseries When is anti-holomorphic dependence forced?\\
+Exchange non-Hermiticity of one-way transfer kernels and a proposed
+time-domain test in a recirculating fiber loop}
+\author{Anthony Monnerot\\ \small Independent researcher, France}
+\date{July 4, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+We investigate when the anti-holomorphic (conjugate-variable) dependence of a
+complex field or kernel is forced by the underlying physics, as opposed to being
+removable by a choice of gauge, basis, or preparation. As a mathematical result, we
+show that for two counter-winding mode ladders coupled unidirectionally --- via
+reservoir-engineered, Lindblad-type coupling with a Jordan-block (double-pole)
+structure per mode pair and a linear frequency ladder --- the two-point transfer
+kernel sums to a closed form involving the Lerch transcendent in the product of
+conjugated coordinates. Reciprocity is equivalent to the existence of an
+exchange-Hermitian mirror partner of the kernel; unidirectionality removes this
+partner. All symbolic claims are certified by exact Wirtinger-derivative
+computation. We then propose an implementation in a recirculating fiber loop with
+an intracavity amplifier and an in-loop isolator, together with a time-domain
+protocol based on a secular revival envelope, a revival comb, and a
+single-versus-twin-comb reciprocity test. Numerical simulations with
+literature-typical component values indicate that the secular exponent remains
+robust under several realistic noise sources, while revival-comb visibility is
+significantly more demanding in terms of loop-phase stability. No experimental
+measurements have been performed; experimental verification remains necessary.
+\end{abstract}
+
+\section{Introduction}
+
+\subsection{The question}
+
+A complex field or kernel on a two-dimensional carrier generally depends on both
+the holomorphic coordinate $z$ and its conjugate $\zb$. In many physical settings
+the anti-holomorphic dependence is an artifact of description: it can be removed
+by a gauge transformation, by a change of basis, or by a different choice of
+preparation or probe, after which the object is holomorphic, or real, or a
+holomorphic function dressed by a modulus factor. This paper is concerned with
+the opposite situation: when is the anti-holomorphic dependence \emph{forced} ---
+present in every gauge, every basis, and for every admissible preparation? We treat
+removability operationally: a structure is removable if some transformation
+within a declared admissible class (unitary or similarity gauge
+transformations, basis changes among the physical modes, choices of drive or
+input port) maps the object to one whose mixed Wirtinger structure is trivial.
+Forcedness is the failure of every such attempt, and we require it to be
+certified symbolically rather than argued.
+
+\subsection{Why one-point fields are insufficient}
+
+Two elementary mechanisms empty the one-point case, and motivate the two-point
+object studied here. First, reality locking: any physically real scalar
+observable satisfies a conjugation constraint that ties its anti-holomorphic
+content to its holomorphic content point by point; the two are mirror images
+and carry no independent information. Second, preparation erasability: even for
+a genuinely complex field obtained by driving a system, a one-point snapshot of
+the driven response depends on the drive, and there exist admissible drives
+that erase its anti-holomorphic content entirely; structure that can be
+switched off by an input choice is not forced. Both mechanisms leave a natural
+escape: an object that is neither a real observable nor a driven snapshot,
+namely the two-point transfer kernel of an open, non-reciprocal system --- the
+response at one point to a source at another. A kernel is a property of the
+dynamical generator, not of any drive; and non-reciprocity, implemented at the
+level of the generator (Lindblad-type one-way coupling), breaks precisely the
+conjugation-exchange symmetry that reality locking enforces. The body of the
+paper makes this escape quantitative.
+
+\subsection{Results, and what is not claimed}
+
+We establish, at the level of symbolically certified formula structure: (i) a
+closed form for the two-point transfer kernel of two counter-winding mode
+ladders under per-pair one-way Jordan coupling --- a Lerch transcendent in the
+product of conjugated coordinates; (ii) a dichotomy --- reciprocity is equivalent
+to the presence of an exchange-Hermitian mirror partner of the kernel, and
+one-way coupling deletes that partner; (iii) a three-fold classification of the
+resulting kernel (conjugate-sector entanglement, non-pairing, transcendence)
+with the reproducing-kernel and paired-sum constructions as certified
+counterexamples on the reciprocal side. We further propose a fiber-loop
+implementation and a time-domain protocol, and we analyze its robustness
+against literature-typical imperfections. We claim no experimental result: no
+measurement has been performed, all component values are catalogue-typical, and
+the relation of the kernel to superficially similar arithmetic objects (mock
+modular forms) is discussed and explicitly not asserted. The contribution, if
+any, is a sharply posed question, a certified structural dichotomy, and a
+concrete, falsifiable measurement proposal.
+
+Beyond the forcing question itself, the proposed protocol bears on an open
+experimental debate in exceptional-point (EP) sensing. The claimed sensitivity
+enhancement of EP-based sensors has been challenged on noise
+grounds~\cite{Langbein2018,Wiersig2020}, and fundamental-limit analyses have
+shown that non-reciprocity --- rather than EP proximity per se --- is the
+resource that allows a sensor to exceed the bounds constraining any reciprocal
+device~\cite{LauClerk2018}. Both strands of that debate presuppose the ability
+to certify, in operation and under realistic noise, (i) that a device is
+genuinely defective (a Jordan-block degeneracy rather than a near-degenerate
+diagonalizable pair) and (ii) that it is genuinely non-reciprocal. The
+time-domain observables proposed here address precisely these two
+certification tasks at low cost: the secular exponent of the revival envelope
+is a direct witness of Jordan structure which our simulations indicate is
+robust to loop-phase jitter and between-shot noise (Section~\ref{sec:noise}),
+and the single-versus-twin revival comb is a direct witness of broken
+reciprocity. We emphasize that these are certification tools; no
+sensitivity-enhancement claim is made or implied.
+
+\subsection{Outline}
+
+Section~\ref{sec:structure} constructs the kernel and states the dichotomy.
+Section~\ref{sec:prior} situates the object among its nearest neighbors.
+Section~\ref{sec:platform} describes the proposed platform and protocol;
+Section~\ref{sec:noise} the imperfection analysis. Section~\ref{sec:discussion}
+discusses assumptions, limitations, open questions, and falsifiability. The
+certification details, the closed-form derivations, and the simulation
+parameters are provided as supplementary material in the repository
+accompanying this deposit.
+
+\section{Mathematical structure of the one-way kernel}
+\label{sec:structure}
+
+\subsection{Setup}
+
+We consider two families of modes with opposite winding on a ring-like carrier:
+an ``upstream'' family $\phi_m \propto e^{+i m \theta}$ and a ``downstream''
+family $\chi_m \propto e^{-i m \theta}$, indexed by $m \geq 1$. In complex
+coordinates $z = r e^{i\theta}$ on (or near) the carrier circle, the upstream
+family is holomorphic-like ($z^m$ up to a radial profile) and the downstream
+family anti-holomorphic-like ($\zb^{\,m}$). Each pair $(\phi_m, \chi_m)$ is coupled
+unidirectionally: the downstream mode is driven by the upstream one with
+amplitude $g_m$, while the reverse matrix element vanishes identically. Such
+one-way coupling can be produced by reservoir engineering in the sense of
+cascaded quantum systems~\cite{Gardiner1993,Carmichael1993,MetelmannClerk2015}:
+the vanishing of the reverse element is then a
+property of the Lindblad generator itself, not of a drive or preparation
+choice, which is the property we rely on throughout. When the two modes of a
+pair are degenerate and damped at equal rates --- which is automatic if they are
+frequency-degenerate partners coupled to the same bus --- the per-pair dynamical
+matrix is triangular with equal diagonal entries, i.e., a $2\times 2$ Jordan block: the
+transfer function from upstream to downstream carries a double pole,
+\begin{equation}
+G_m(\omega) \;=\; \frac{g_m}{\bigl(i(\omega - \omega_m) - \kappa/2\bigr)^{2}}.
+\end{equation}
+We take the pair frequencies on a linear ladder, $\omega_m = m\,\delta$ (free
+spectral range $\delta$), with a common linewidth $\kappa$.
+
+\subsection{Closed form of the two-point transfer kernel}
+\label{sec:closedform}
+
+The object of interest is not a one-point field but the two-point transfer
+kernel: the response at observation point $\mathbf{r}_1$ to a localized source at
+point $\mathbf{r}_2$. Writing the mode sums at fixed probe frequency and
+collecting the winding bookkeeping (downstream factor $\zbone^{\,m}$ at the
+observation point, conjugated upstream factor $\wbtwo^{\,m}$ at the source
+point), the kernel takes the form
+\begin{equation}
+K(\mathbf{r}_1;\mathbf{r}_2) \;=\; \sum_{m \geq 1} g_m\, x^m,
+\qquad x = \zbone\,\wbtwo,
+\label{eq:kernelsum}
+\end{equation}
+convergent for $|x| < 1$ (observation and source inside the carrier circle). The
+weight ladder determines the analytic class:
+\begin{itemize}
+\item[(a)] flat weights $g_m = g$ give the geometric (algebraic) kernel
+  $g\,x/(1 - x)$;
+\item[(b)] weights $g/m$ give the logarithmic kernel $-g \log(1 - x)$;
+\item[(c)] the physical Jordan ladder $g_m = k / \lambda_m^2$ with
+  $\lambda_m = -\kappa/2 - i m \delta$ gives
+  \begin{equation}
+  K \;=\; -\frac{k}{\delta^{2}} \left[\, \Phi(x, 2, c) - \frac{1}{c^{2}} \,\right],
+  \qquad c = \frac{\kappa}{2 i \delta},
+  \label{eq:lerch}
+  \end{equation}
+  where $\Phi$ is the Lerch transcendent; the leading structure is a
+  dilogarithm.
+\end{itemize}
+Each closed form was verified against its defining series by partial-sum
+comparison (forty terms, several sample points, geometric tail bound); we found
+direct high-order numerical differentiation of the Lerch function unstable and
+avoided it. We emphasize that case (a) shows the one-wayness of the kernel and
+its transcendence are independent properties: flat weights produce a one-way
+but algebraic kernel, and it is the physical double-pole ladder that supplies
+the transcendental class.
+
+\subsection{Reciprocity as an exchange symmetry; the mirror-partner statement}
+\label{sec:mirror}
+
+Let $S$ denote the exchange of the two points, $(z, \zb) \leftrightarrow (w, \wb)$,
+and let the mirror map $M$ act on a kernel formula by swapping each variable with
+its conjugate together with $i \to -i$. We call a kernel
+\emph{exchange-Hermitian} when $K = M(S(K))$ up to an additive constant; because
+logarithmic branches can contribute a piecewise constant, the operationally safe
+test is the constancy of $\exp\!\bigl(K - M(S(K))\bigr)$. Exchange-Hermiticity
+is the formula-level expression of reciprocity: the response from 2 to 1 is the
+conjugate of the response from 1 to 2.
+
+We observe the following dichotomy, verified symbolically on all cases above
+and on control kernels. Reciprocal constructions always produce the mirror
+partner: the diagonal (reproducing-kernel) sum of a single holomorphic sector,
+$-k \log(1 - z\wb)$, is exchange-Hermitian exactly; the Hermitian two-sector sum
+(a one-way half plus its mirror image) is exchange-Hermitian with the paired
+structure explicit; and the kernel $\log(z - \wb)$, which resembles
+two-dimensional chiral propagators, is exchange-Hermitian up to a branch
+constant ($\exp(\Delta) = -1$) and is therefore compatible with reciprocity.
+Unidirectional coupling, by contrast, deletes the mirror partner: the one-way
+kernels of Section~\ref{sec:closedform} satisfy no exchange-Hermiticity
+relation, exactly because the reverse transfer element vanishes and nothing
+restores the conjugate-exchanged term. We summarize this as: reciprocity is
+equivalent to the presence of the exchange-Hermitian mirror partner;
+one-wayness removes it, and the unpaired anti-holomorphic half survives alone.
+
+\subsection{Classification of the kernel}
+
+Three independent formula-level properties position the one-way kernel. First,
+cross-entanglement: the mixed logarithmic derivatives
+$\partial_a \partial_b \log K$ across the two points, evaluated on all four
+conjugate pairings $(z,w)$, $(z,\wb)$, $(\zb,w)$, $(\zb,\wb)$, vanish except on
+$(\zb, \wb)$ --- the kernel is entangled between the two points, and
+specifically in the doubly-conjugated sector, as the winding bookkeeping
+dictates. (A single-pairing test is insufficient; we test all four.) Second,
+non-pairing: $K$ is not invariant under the mirror map, and no mirror partner
+accompanies it, in contrast with every reciprocal control. Third,
+transcendence: for the physical ladder the closed form is a Lerch transcendent,
+while the flat-weight control is algebraic; transcendence is an independent
+axis supplied by the double-pole ladder. We do not attach any interpretation to
+this classification beyond the statements just made.
+
+\subsection{Certification methodology}
+
+All symbolic statements above --- vanishing or non-vanishing of Wirtinger
+derivatives, the pairing tests, the exchange-Hermiticity dichotomy including
+its branch-safe form --- are certified by exact symbolic computation of
+Wirtinger derivatives (treating $z$, $\zb$, $w$, $\wb$ as independent
+variables), in a fixed verification harness that also runs the control battery
+(reproducing-kernel decoy, Hermitian paired sum, branch-constant case).
+Numerical evidence (series verification, finite-difference cross-derivatives on
+transcendental closed forms) supports but never replaces the symbolic
+certificates. We adopt this separation --- a discoverer may propose, only the
+symbolic judge certifies --- throughout the paper.
+
+\subsection{Boundary structure of the kernel}
+\label{sec:boundary}
+
+The closed form of Section~\ref{sec:closedform} converges on the open unit
+polydisk $|x| < 1$, $x = \zbone\wbtwo$, and the proposed protocol reads its
+boundary values. Three structural facts about this boundary are worth
+recording; all are verified numerically in the repository accompanying this
+deposit. First, the boundary is intrinsic and dimensionless: it sits at the
+pure number $|x| = 1$, fixed by the geometry of the mode sum rather than by
+any parameter choice (the physical rates $\kappa$ and $\delta$ enter the
+complex offset $c$, not the location of the boundary), and the formalism
+contains no dimensional constant from which any other distinguished scale
+could be built. Second, the boundary is emergent in the mode ladder: every
+truncation of the sum to $N$ rungs is an entire function of $x$ with no
+boundary at all, while the radius at which the truncated sum departs from
+the closed form approaches $|x| = 1$ monotonically as $N$ grows (at the
+one-percent level, the departure radius is $0.904$ at $N = 10$ and $0.991$
+at $N = 30$, and lies within $10^{-6}$ of the boundary beyond
+$N \simeq 100$). The boundary is therefore a property of the infinite
+ladder that no finite sub-ladder carries --- the domain-level analogue of
+the fact, used throughout this section, that the one-way structure lives in
+the full ladder rather than in any single Jordan pair. Third, the closed
+form continues analytically beyond the boundary, where the defining series
+diverges: the kernel as a function outlives the kernel as a mode sum, at
+the price of a branch structure on $x \in (1, \infty)$ whose leading
+discontinuity is inherited from the dilogarithm ($2\pi i \ln x$; we
+verified the dilogarithm discontinuity numerically to nine digits, and
+state the kernel-specific jump at the level of the Lerch-to-dilogarithm
+reduction rather than as an independently certified result). We record
+these facts as a structural characterization only: they sharpen, but do
+not close, the boundary-limit question of Section~\ref{sec:discussion},
+since a rigorous treatment of the $|x| \to 1$ limit in the presence of the
+complex offset remains open.
+
+\section{Relation to prior structures}
+\label{sec:prior}
+
+None of the ingredients used above is new in isolation; what we believe has no
+direct precedent is the combination of the forcing question, the mirror-deletion
+statement, the derived Lerch kernel, and the symbolic certification discipline.
+This section states, for each neighboring body of work, what is similar and what
+is structurally different. We make no priority claim beyond ``no direct precedent
+found in our search''; we would welcome pointers to closer antecedents.
+
+\subsection{Bergman and Szeg\H{o} reproducing kernels}
+
+\emph{Similar:} reproducing kernels of holomorphic function spaces are two-point,
+cross-conjugate objects --- functions of $z\wb$ --- and include logarithmic forms
+such as $-\log(1 - z\wb)$; at the formula level they occupy the same
+cross-conjugate class as our kernel and served as our principal controls.
+\emph{Different:} reproducing kernels satisfy
+$K(\mathbf{r}_1, \mathbf{r}_2) = \overline{K(\mathbf{r}_2, \mathbf{r}_1)}$ by
+construction --- they are exactly exchange-Hermitian, i.e., they belong to the
+reciprocal class. In our terms, they always come with their mirror partner. Our
+one-way kernel differs precisely in this respect: no exchange-Hermiticity
+relation holds, because the reverse transfer element vanishes identically. We
+regard the Bergman kernel as the sharpest decoy for the present construction: a
+transcendental, cross-conjugate, non-mirror-symmetric formula that is
+nevertheless fully compatible with reciprocity. The exchange-Hermiticity test
+was introduced into our battery specifically because a formula-level gate
+without it accepts this decoy.
+
+\subsection{Cascaded quantum systems and reservoir-engineered non-reciprocity}
+
+\emph{Similar:} the coupling mechanism we use is entirely standard.
+Unidirectional (cascaded) coupling of quantum systems goes back to Gardiner and
+to Carmichael~\cite{Gardiner1993,Carmichael1993}, and the reservoir-engineering
+recipe that makes one matrix element of a coupled pair vanish while keeping the
+other finite is that of Metelmann and Clerk~\cite{MetelmannClerk2015}, with
+several experimental realizations in superconducting circuits and
+optomechanics. \emph{Different:} those works engineer and characterize the
+non-reciprocal coupling itself (isolation, directional amplification,
+scattering matrices). The added content here is downstream of the mechanism:
+the classification of the two-point transfer kernel that a whole ladder of such
+couplings produces (its conjugate-sector entanglement, its non-pairing, its
+transcendence class), and the statement that reciprocity at kernel level is
+equivalent to the presence of the exchange-Hermitian mirror partner. To our
+knowledge the kernel-level dichotomy is not stated in the cascaded-systems
+literature.
+
+\subsection{Mock modular forms and Appell--Lerch sums}
+\label{sec:mock}
+
+Although the closed-form expression of the kernel involves the Lerch
+transcendent, reminiscent of certain mock-modular forms and Appell--Lerch sums,
+the object studied here is fundamentally different in both origin and
+structure. Our kernel arises from a unidirectional Lindblad coupling between
+counter-winding mode ladders, with a closed form convergent on the unit
+polydisk; it carries no modular transformation properties, and exhibits a
+strictly anti-holomorphic dependence on the product of conjugated coordinates.
+It should therefore not be regarded as a mock-modular form, but rather as an
+exchange-non-Hermitian one-way transfer kernel.
+
+This is the most delicate comparison, and we treat it explicitly because the
+same special function appears on both sides. \emph{Similar:} in the theory of
+mock theta functions as completed by Zwegers~\cite{Zwegers2002}, and in its
+subsequent development~\cite{Zagier2009,DMZ2012}, a holomorphic $q$-series
+acquires good (modular) transformation behavior only after the addition of an
+explicitly non-holomorphic completion term; the building blocks are
+Appell--Lerch sums, which belong to the same Lerch family as the transcendent
+in our closed form. There is, moreover, a structural motif shared with our
+construction: an object that is ``one half'' of a symmetric pair, whose missing
+partner would restore a symmetry --- modularity there, exchange-Hermiticity
+here --- and whose interest lies precisely in the uncompleted half.
+\emph{Different, and decisively so at the technical level:} (i) our kernel is a
+function of a single product variable $x = \zb\wb$ on the unit polydisk, with
+no modular variable $\tau$, no lattice, no weight, and no transformation law
+--- nothing in our construction transforms under $SL(2,\mathbb{Z})$ or any
+subgroup; (ii) the anti-holomorphic dependence of a mock form's completion is
+arithmetic in origin (an Eichler-type period integral in $\bar{\tau}$), whereas
+ours is dynamical (winding bookkeeping of counter-propagating ladders under
+Lindblad-type one-way coupling); (iii) the parameter $c$ in our Lerch
+transcendent is a dynamical complex offset, $\kappa/(2 i \delta)$, not a
+lattice point; (iv) the symmetry whose breaking defines our object is the
+exchange of two spatial points, not a modular transformation. We therefore do
+not claim any correspondence between the two settings. Making one precise would
+require, at minimum, exhibiting a map under which the exchange operation
+realizes a modular transformation and the one-way kernel arises as the shadow
+or completion term of a specific mock object; we do not possess such a map, and
+we flag its existence or non-existence as an open question
+(Section~\ref{sec:discussion}). The resemblance, as it stands, is a shared
+special-function family and a shared ``missing-partner'' motif --- not an
+identity.
+
+\subsection{Non-reciprocal lattice models and the Hatano--Nelson asymmetry}
+\label{sec:hn}
+
+\emph{Similar:} unidirectional dynamics of Hatano--Nelson type --- generated by
+an imaginary vector potential --- is known to leave universal, closed-form
+fingerprints in its counting and echo statistics: in the interacting
+Hatano--Nelson model, the full counting statistics takes a universal Gaussian
+form whose mean scales with the imaginary vector
+potential~\cite{DoraMoca2022}, and the work statistics exhibits a universal
+high-energy tail with exponent $-3$, originating from a temporal power-law
+decay of a generalized Loschmidt echo~\cite{DoraMoca2023}. We read this as
+independent evidence that unidirectional dynamics writes universal structures
+into its generating functions. \emph{Different:} the observables there are
+counting-statistics and Loschmidt-echo objects in a one-dimensional lattice,
+with no two-point spatial kernel, no conjugate-sector classification, and no
+exchange-Hermiticity statement; conversely, the Hatano--Nelson asymmetry
+itself is gauge-removable by an imaginary similarity transformation, whereas
+the one-way coupling used here is Lindbladian and not removable by any such
+similarity --- a distinction that matters for the forcing question and that we
+test explicitly.
+
+\subsection{Exceptional points and double poles}
+
+\emph{Similar:} the per-pair ingredient of our construction --- a defective
+(Jordan) $2\times 2$ block whose transfer function carries a double pole --- is
+standard exceptional-point physics~\cite{Heiss2012}, and chiral exceptional
+points in whispering-gallery resonators are an active experimental subject.
+\emph{Different:} a single exceptional point yields a single azimuthal Fourier
+tone of the two-point response and no transcendental structure; in our
+construction it is the coherent ladder of Jordan pairs, with its double-pole
+weights summed over the winding index, that produces the Lerch transcendent. We
+state this as a control result: the EP is necessary per pair but nowhere near
+sufficient; the ladder is the point.
+
+Time-domain signatures of defective degeneracies also have an experimental
+precedent: Dietz \emph{et al.} observed the algebraic-times-exponential decay
+(a $t^{2}$ intensity dependence) predicted at an exceptional point of a
+dissipative microwave billiard~\cite{Dietz2007}. Relative to that precedent,
+the present proposal differs in the platform (a recirculating fiber loop read
+on an oscilloscope rather than a microwave cavity), in the observable set (the
+secular envelope is combined with a phase-swept revival comb and a
+single-versus-twin-comb reciprocity test, which the billiard setting does not
+probe), and in the object being certified (the kernel-level deletion of the
+exchange-Hermitian mirror partner by one-way coupling, certified symbolically
+upstream). The secular envelope itself is therefore not claimed as new; its
+use as a cheap, noise-robust certification channel for one-way kernels is.
+
+\subsection{Cousins of the forcing question}
+
+The question ``when is anti-holomorphic dependence forced rather than chosen''
+has recognizable cousins in at least three settings: the holomorphic anomaly of
+topological string amplitudes~\cite{BCOV1994}, where consistency forces a
+controlled anti-holomorphic dependence on moduli; $tt^*$
+geometry~\cite{CecottiVafa1991}, where holomorphic data are completed by a
+metric mixing the two sectors; and poly-analytic function
+theory~\cite{Vasilevski2000,Abreu2010,AbreuFeichtinger2014}, which studies
+function spaces genuinely dependent on $\zb$, notably in higher Landau levels.
+\emph{Similar:} in each case a structure that ``would like'' to be holomorphic
+is obliged, by consistency or by the physics, to carry anti-holomorphic
+content. \emph{Different:} the objects (moduli-space amplitudes, ground-state
+metrics, single-particle function spaces), the mechanisms (anomaly equations,
+supersymmetric geometry, Landau-level structure), and the notion of
+removability all differ from ours; none of these settings poses the
+removability question for a two-point transfer kernel under non-reciprocal
+open-system dynamics, which is the specific question addressed here.
+
+\section{Proposed experimental platform and protocol}
+\label{sec:platform}
+
+\subsection{Chiral feedback bus on a recirculating fiber loop}
+
+We propose the following implementation. A recirculating fiber loop (length
+$L$, free spectral range $\delta = c / (n_g L)$) supports frequency-degenerate
+pairs of counter-propagating modes, indexed by the longitudinal number $m$; on
+the loop, counter-propagation realizes the counter-winding pairing of
+Section~\ref{sec:structure} (the two members of a pair carry azimuthal factors
+$e^{+i m \theta}$ and $e^{-i m \theta}$). The loop is coupled to an add-drop
+bus; the clockwise output of the bus is routed through an optical isolator and
+re-injected onto the counter-clockwise input. This ``chiral feedback bus'' has
+three properties that match the mathematical construction of
+Section~\ref{sec:structure} without fine tuning. First, the two members of each
+pair are degenerate and couple to the same bus with the same rate, so the
+equal-diagonal condition of the per-pair Jordan block holds automatically.
+Second, the isolator suppresses the reverse path, so the vanishing of the
+reverse matrix element is a structural property of the setup rather than a
+tuned condition. Third, a single feedback loop serves the entire mode ladder
+simultaneously, with per-rung coupling phases $g_m = g_0 e^{i m \phi}$ set by
+the loop delay ($\phi = \delta$ times the loop delay), which amounts to a rigid
+rotation of the ladder. Numerically, the ladder sum over this structure
+reproduces the closed form of Section~\ref{sec:closedform} --- evaluated on the
+unit circle of its convergence domain --- to a relative accuracy of
+$1.4\times 10^{-7}$ in our implementation, which we regard as an identity check
+between the abstract kernel and the device model rather than as an
+approximation.
+
+\subsection{Mapped parameters}
+
+For concreteness we map the model onto catalogue-typical components (all values
+to be re-verified against the actual components of any experimental attempt):
+$L = 20$~m of standard single-mode fiber ($\delta / 2\pi = 10.2$~MHz,
+round-trip time 98~ns); an in-loop isolator (insertion 0.8~dB, isolation
+40~dB); an intracavity erbium amplifier (noise figure 5~dB) compensating the
+passive chain; a 70/30 output coupler; a 1~GHz photoreceiver (about 98 rungs
+passed); a probe laser of 100~kHz linewidth; and a piezo fiber stretcher for
+the loop phase. These values give a loaded ratio $\kappa/\delta = 0.19$, an
+on-resonance conversion ratio of order unity, and an amplifier-noise-limited
+single-shot amplitude signal-to-noise ratio of order several hundred. One
+design tension is worth recording: an amplifier that fully compensates the
+passive losses raises the finesse and suppresses the frequency-domain
+visibility of the transcendental lineshape (which scales as
+$(\kappa/\delta)^2$); heavy output coupling restores $\kappa/\delta$ to the
+required range while the amplifier still compensates the passive chain. The
+time-domain protocol below is insensitive to this tension.
+
+\subsection{Time-domain protocol}
+\label{sec:protocol}
+
+Pulse the clockwise port; record the counter-clockwise impulse response. In the
+model, this response is a comb of revivals, one per round trip, carried by a
+secular envelope $t\, e^{-\kappa t / 2}$ --- the time-domain fingerprint of the
+double-pole (Jordan) structure, as opposed to the plain exponential of a
+diagonalizable pair. Three measurements are proposed. (i) Secular-envelope
+exponent: fit the revival peak heights to $t^p e^{-\kappa t / 2}$; the Jordan
+structure predicts $p = 1$, a diagonalizable control predicts $p = 0$.
+(ii) Loop-phase sweep: the revival positions shift linearly with the
+piezo-controlled loop phase, with slope $1/\delta$; sweeping the phase at fixed
+ports scans the angular structure of the kernel without moving parts.
+(iii) Reciprocity test: the one-way configuration predicts a single revival
+comb; any reciprocal back-coupling produces a twin comb at the mirrored phase.
+The twin-comb contrast is floored by the finite isolation of the isolator
+(energy floor $10^{-\mathrm{isolation}/10}$); the test therefore reads the
+mirror-deletion statement of Section~\ref{sec:mirror} directly on an
+oscilloscope, down to that floor. Figures~\ref{fig:envelope}
+and~\ref{fig:mirror} illustrate the two signatures on the deterministic model
+itself. We emphasize the epistemic order: these are
+proposed measurements; none has been performed.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.82\textwidth]{figures/fig1_secular_envelope.pdf}
+\caption{Simulation of the model of Section~\ref{sec:structure} in the mapped
+dimensionless regime ($\kappa/\delta = 0.2$, $M = 300$ rungs, loop phase
+$\phi = 2.1$): revival comb $|E(t)|$ of the one-way Jordan ladder versus the
+diagonalizable control, with the secular envelope $t\,e^{-\kappa t/2}$
+anchored on the fitted revival peaks. The three-regressor fit of
+Section~\ref{sec:protocol} recovers $p = 1.0001 \pm 0.0001$ (Jordan
+prediction $p=1$) and $\hat\kappa = 0.2000$. Deterministic model output; no
+experimental data.}
+\label{fig:envelope}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.82\textwidth]{figures/fig2_mirror_deletion.pdf}
+\caption{The mirror-deletion law in the time domain (same model and
+parameters as Fig.~\ref{fig:envelope}). Top: one-way configuration --- a
+single revival comb at the main positions $(\phi + 2\pi k)/\delta$ (dotted);
+the energy at the mirrored positions $(2\pi - \phi + 2\pi k)/\delta$ (dashed)
+is at the numerical floor (mirror-to-main energy ratio $4.7\times 10^{-4}$).
+Bottom: reciprocal control --- the twin comb appears at the mirrored
+positions with ratio $\approx 1$. Deterministic model output; no experimental
+data.}
+\label{fig:mirror}
+\end{figure}
+
+\section{Noise and imperfection analysis}
+\label{sec:noise}
+
+\subsection{Classification and grouped channels}
+
+For this protocol the decisive distinction is between within-record effects
+(acting inside one 0.8-microsecond record, hence able to distort the secular
+exponent) and between-shot effects (acting between averaged records, hence
+damping the revival comb: a shot-to-shot loop-phase spread $\sigma$ suppresses
+rung $m$ by $e^{-m^2 \sigma^2 / 2}$). Grouping ten physical effects by this
+criterion and by channel yields four families: (A) loop phase noise (thermal,
+acoustic, vibrational --- the fiber thermo-optic response is of order $10^3$
+radians per kelvin over 20~m, so unstabilized drifts translate into radians
+over an averaging run); (B) intensity noise (amplifier relative intensity noise
+within the record; slow gain drift between shots); (C) polarization
+(state-of-polarization drift converting, through polarization-dependent loss,
+into slow amplitude fading); (D) parasitic reflections and finite isolation (a
+genuine weak twin comb at the isolation floor; distributed Rayleigh backscatter
+sits well below it for a 20~m loop). Kerr nonlinearity and third-order
+dispersion are included as switches and shown negligible at milliwatt powers
+(of order $10^{-5}$ radian per round trip, and $10^{-3}$ of the second-order
+dispersion, respectively). All magnitudes are literature-typical and flagged as
+such.
+
+\subsection{Simulation results}
+
+With additive detection noise alone, the secular exponent separates from the
+diagonalizable value at the ten-sigma level in a single shot at amplitude
+signal-to-noise 10, and at about forty sigma at signal-to-noise 3 with one
+hundred oscilloscope averages. Replacing white noise by amplifier noise
+recirculating on the loop resonances --- the least favorable spectral shape,
+since the noise then peaks exactly where the signal lives --- degrades this
+only mildly. The exponent is likewise unaffected by detector-bandwidth
+truncation down to about fifteen rungs, by slow polarization fading, by gain
+jitter, and, notably, by shot-to-shot loop-phase jitter: the secular envelope
+of the revival peaks does not depend on the ladder size, so the Jordan
+certificate survives phase noise that visibly destroys the comb. What phase
+noise does destroy is the many-rung content of the comb --- the part of the
+signal that carries the transcendental class --- with an effective ladder
+$m_{\mathrm{eff}}$ of order $1/\sigma$. Loop dispersion is subcritical at the
+mapped design and produces a clear failure signature (late revivals broadening
+with revival index) only when exaggerated far beyond it. Finite laser linewidth
+acts, after ensemble averaging, as an additional decay rate $\pi$ times the
+linewidth: it biases the extracted $\kappa$ but provably not the exponent,
+whose regressor is separated in the fit. Finally, two facts matter for the
+reciprocity test: the isolation floor of a standard 40~dB isolator lies below
+the realistic noise-floor of the twin-comb contrast, so single-stage isolation
+suffices initially; and loop phase noise pollutes the twin-comb contrast
+roughly tenfold before it kills the comb, so the reciprocity test demands a
+phase-quiet loop even more than the comb itself does.
+
+\subsection{Scope and ranking}
+
+Within the explored window of literature-typical and stressed values, loop
+phase stability dominates every other imperfection; intensity, polarization and
+reflection channels are benign. We state the ranking with its exact scope: the
+damage mechanisms and their scalings in the mode index are established in the
+model; the ordering for a specific real device depends on the relative
+magnitudes of its actual imperfections and remains to be established from
+measured component data. The corresponding design guidance --- protect the loop
+phase first --- is conditional on that window.
+
+\section{Discussion and limitations}
+\label{sec:discussion}
+
+\subsection{Modeling assumptions}
+
+Four idealizations deserve explicit statement. The mode families are taken as
+ideal counter-winding ladders with a strictly linear frequency ladder; real
+devices have dispersion, which we treat perturbatively in
+Section~\ref{sec:noise} but which deforms the exact closed form. The one-way
+coupling is Lindbladian and exact (the reverse element vanishes identically); a
+physical isolator has finite isolation, which converts the exact statement
+``the mirror partner is deleted'' into the quantitative statement ``the mirror
+partner is suppressed to the isolation floor''. The laser is treated at the
+ensemble level, where its finite linewidth becomes a deterministic additional
+decay; individual records carry phase-diffusion realizations that the ensemble
+treatment averages. Finally, every numerical value in
+Sections~\ref{sec:platform}--\ref{sec:noise} is literature- or
+catalogue-typical; none is a measurement of an actual component.
+
+\subsection{What a measurement would and would not establish}
+
+Observation of the three signatures --- secular exponent, phase-swept revival
+comb, single-versus-twin comb down to the isolation floor --- would establish
+that the device realizes a two-point transfer kernel of the derived class:
+exchange-non-Hermitian, with the anti-holomorphic sector structure of
+Section~\ref{sec:structure}. It would not establish anything beyond that. In
+particular it would carry no implication for arithmetic questions
+(Section~\ref{sec:mock}), no statement about systems other than the one
+measured, and no foundational or cosmological consequence. Conversely, the
+measurement is informative in failure: each signature refutes a specific
+structural claim, as follows.
+
+\subsection{Falsifiability}
+
+The proposal is refutable in parts. (i) If the secular envelope shows an
+exponent consistent with zero under conditions where per-pair degeneracy and
+one-way coupling are independently verified, the Jordan-ladder structure is
+refuted. (ii) If the conversion channel of the two-point response depends on
+the coordinate difference rather than the coordinate sum, the one-way kernel
+structure is refuted. (iii) If a twin comb appears in the one-way configuration
+at a contrast far above the independently measured isolation floor, the
+mirror-deletion statement is refuted. (iv) The converse direction is bounded:
+none of the three signatures, if observed, establishes more than the kernel
+structure itself.
+
+\subsection{Open questions}
+
+Three questions are open at the level of mathematics. First, the exact status
+of the resemblance to mock-modular completions: whether any map exists under
+which the exchange operation realizes a modular transformation and the one-way
+kernel arises as the shadow of a specific mock object; we possess no such map
+and no argument excluding one. Second, the completeness of the classification:
+our three formula-level properties separate all cases we have constructed, but
+we have no theorem that they separate all kernels of physical origin. Third,
+the boundary behavior: the closed form lives on the open unit polydisk and the
+proposed measurement reads its boundary values; a rigorous treatment of the
+boundary limit, in the presence of the complex ladder offset, would strengthen
+Section~\ref{sec:platform}. A structural characterization of this boundary --- its intrinsic, dimensionless location, its emergence under truncation of the mode ladder, and the analytic continuation and branch structure beyond it --- is given in Section~\ref{sec:boundary}; the rigorous limit statement remains open.
+
+\section{Conclusion}
+
+We have posed the removability question for anti-holomorphic structure in the
+setting where, we argue, it is best posed --- the two-point transfer kernel of
+a non-reciprocal open system --- and answered it at the level of certified
+formula structure: one-way coupling between counter-winding mode ladders
+produces a Lerch-transcendent kernel whose exchange-Hermitian mirror partner is
+absent, whereas every reciprocal construction we tested retains that partner.
+We have proposed a fiber-loop measurement of this structure, with an analysis
+of its realistic imperfections and explicit criteria under which the proposal
+would be refuted. No experimental data exist; the next step is a measurement.
+
+\section*{Code and data availability}
+
+The symbolic certification harness, the simulation scripts, and the findings
+files underlying every certified claim in this paper are archived alongside
+this deposit. This work extends the author's eml$^\star$ program on the
+detection of anti-holomorphic dynamics; the corresponding paper and software
+are archived at Zenodo under DOIs \href{https://doi.org/10.5281/zenodo.20272784}{10.5281/zenodo.20272784}
+(paper) and \href{https://doi.org/10.5281/zenodo.20273262}{10.5281/zenodo.20273262}
+(software), to which the present deposit is linked.
+
+\section*{AI assistance disclosure}
+
+The author, an independent researcher, developed this work with AI assistants
+used as coding, auditing, and drafting tools under a strict verification
+discipline: every symbolic claim was certified by exact Wirtinger-derivative
+computation executed on the author's machine, and no numerical result reported
+here was produced or accepted without such execution. Responsibility for the
+content rests with the author.
+
+\begin{thebibliography}{99}
+
+\bibitem{Langbein2018}
+W. Langbein,
+\emph{No exceptional precision of exceptional-point sensors},
+Phys. Rev. A \textbf{98}, 023805 (2018).
+
+\bibitem{Wiersig2020}
+J. Wiersig,
+\emph{Review of exceptional point-based sensors},
+Photonics Res. \textbf{8}, 1457--1467 (2020).
+
+\bibitem{LauClerk2018}
+H.-K. Lau and A. A. Clerk,
+\emph{Fundamental limits and non-reciprocal approaches in non-Hermitian quantum sensing},
+Nat. Commun. \textbf{9}, 4320 (2018).
+
+\bibitem{Gardiner1993}
+C. W. Gardiner,
+\emph{Driving a quantum system with the output field from another driven quantum system},
+Phys. Rev. Lett. \textbf{70}, 2269--2272 (1993).
+
+\bibitem{Carmichael1993}
+H. J. Carmichael,
+\emph{Quantum trajectory theory for cascaded open systems},
+Phys. Rev. Lett. \textbf{70}, 2273--2276 (1993).
+
+\bibitem{MetelmannClerk2015}
+A. Metelmann and A. A. Clerk,
+\emph{Nonreciprocal photon transmission and amplification via reservoir engineering},
+Phys. Rev. X \textbf{5}, 021025 (2015); arXiv:1502.07274.
+
+\bibitem{Zwegers2002}
+S. P. Zwegers,
+\emph{Mock Theta Functions},
+PhD thesis, Utrecht University (2002); arXiv:0807.4834.
+
+\bibitem{Zagier2009}
+D. Zagier,
+\emph{Ramanujan's mock theta functions and their applications (after Zwegers and Ono--Bringmann)},
+S\'eminaire Bourbaki, Exp. No. 986, Ast\'erisque \textbf{326} (2009).
+
+\bibitem{DMZ2012}
+A. Dabholkar, S. Murthy, and D. Zagier,
+\emph{Quantum black holes, wall crossing, and mock modular forms},
+arXiv:1208.4074.
+
+\bibitem{DoraMoca2022}
+B. D\'ora and C. P. Moca,
+\emph{Full counting statistics in the many-body Hatano--Nelson model},
+Phys. Rev. B \textbf{106}, 235125 (2022); arXiv:2208.12017.
+
+\bibitem{DoraMoca2023}
+B. D\'ora and C. P. Moca,
+\emph{Work statistics and generalized Loschmidt echo for the Hatano--Nelson model},
+arXiv:2310.19310 (2023).
+
+\bibitem{Heiss2012}
+W. D. Heiss,
+\emph{The physics of exceptional points},
+J. Phys. A: Math. Theor. \textbf{45}, 444016 (2012).
+
+\bibitem{Dietz2007}
+B. Dietz, T. Friedrich, J. Metz, M. Miski-Oglu, A. Richter, F. Sch\"afer,
+and C. A. Stafford,
+\emph{Rabi oscillations at exceptional points in microwave billiards},
+Phys. Rev. E \textbf{75}, 027201 (2007).
+
+\bibitem{BCOV1994}
+M. Bershadsky, S. Cecotti, H. Ooguri, and C. Vafa,
+\emph{Kodaira--Spencer theory of gravity and exact results for quantum string amplitudes},
+Commun. Math. Phys. \textbf{165}, 311 (1994).
+
+\bibitem{CecottiVafa1991}
+S. Cecotti and C. Vafa,
+\emph{Topological anti-topological fusion},
+Nucl. Phys. B \textbf{367}, 359 (1991).
+
+\bibitem{Vasilevski2000}
+N. L. Vasilevski,
+\emph{Poly-Fock spaces},
+Oper. Theory Adv. Appl. \textbf{117}, 371--386 (Birkh\"auser, Basel, 2000).
+
+\bibitem{Abreu2010}
+L. D. Abreu,
+\emph{Sampling and interpolation in Bargmann--Fock spaces of polyanalytic functions},
+Appl. Comput. Harmon. Anal. \textbf{29}, 287--302 (2010).
+
+\bibitem{AbreuFeichtinger2014}
+L. D. Abreu and H. G. Feichtinger,
+\emph{Function spaces of polyanalytic functions},
+in \emph{Harmonic and Complex Analysis and its Applications}, Trends in Mathematics,
+pp. 1--38 (Birkh\"auser, Cham, 2014).
+
+\end{thebibliography}
+
+\end{document}

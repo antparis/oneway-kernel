@@ -1,0 +1,7 @@
+# Minimal dependencies for the certification judge and all harnesses.
+# Externally reproduced on 2026-07-10 with numpy 2.4.4, scipy 1.17.1,
+# sympy 1.14.0, mpmath 1.3.0; any recent versions should work.
+numpy
+scipy
+sympy
+mpmath

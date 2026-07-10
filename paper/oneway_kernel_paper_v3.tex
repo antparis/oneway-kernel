@@ -41,7 +41,7 @@ protocol based on a secular revival envelope, a revival comb, and a
 single-versus-twin-comb reciprocity test. Numerical simulations with
 literature-typical component values indicate that the secular exponent remains
 robust under several realistic noise sources, while revival-comb visibility is
-significantly more demanding in terms of loop-phase stability. No experimental
+significantly more demanding in terms of loop-phase stability. Beyond the protocol, we characterize the kernel's intrinsic analyticity boundary at $|x| = 1$ --- emergent from the mode ladder, with a chiral phase law of its branch-cut discontinuity separating the one-way kernel from its reciprocal control --- and prove an elementary Fourier floor theorem for the interference relief along the cut: the residual relief of large kernel sums is the window-contrast of the Fourier transform of the weighted winding measure, with closed-form floors for the canonical ladder families and a discreteness dichotomy (finite ladders keep their log-scale interference calendar forever; a continuum forgets it). Read backwards, the law yields a one-way spectroscopy recovering the winding measure from the relief alone, with proven limits. No experimental
 measurements have been performed; experimental verification remains necessary.
 \end{abstract}
 
@@ -93,13 +93,13 @@ to the presence of an exchange-Hermitian mirror partner of the kernel, and
 one-way coupling deletes that partner; (iii) a three-fold classification of the
 resulting kernel (conjugate-sector entanglement, non-pairing, transcendence)
 with the reproducing-kernel and paired-sum constructions as certified
-counterexamples on the reciprocal side. We further propose a fiber-loop
+counterexamples on the reciprocal side. At the level of machine-verified simulation and one elementary hand proof, we further establish: (iv) the kernel's intrinsic, emergent analyticity boundary and the chiral phase law of its cut, with class-level genericity; (v) a Fourier floor theorem for the interference relief of large kernel sums, with sampling-dependent convergence rates and a discreteness dichotomy for the log-scale calendar; (vi) closed-form floors for the canonical ladder families; (vii) a one-way spectroscopy with proven limits. We further propose a fiber-loop
 implementation and a time-domain protocol, and we analyze its robustness
 against literature-typical imperfections. We claim no experimental result: no
 measurement has been performed, all component values are catalogue-typical, and
 the relation of the kernel to superficially similar arithmetic objects (mock
 modular forms) is discussed and explicitly not asserted. The contribution, if
-any, is a sharply posed question, a certified structural dichotomy, and a
+any, is a sharply posed question, a certified structural dichotomy, an elementary machine-faced floor theorem with closed-form consequences, an inverse instrument whose limits are proven, and a
 concrete, falsifiable measurement proposal.
 
 Beyond the forcing question itself, the proposed protocol bears on an open
@@ -123,11 +123,19 @@ sensitivity-enhancement claim is made or implied.
 \subsection{Outline}
 
 Section~\ref{sec:structure} constructs the kernel and states the dichotomy.
+Section~\ref{sec:boundary} characterizes the kernel's analyticity
+boundary: its intrinsic and emergent character, the chiral phase law of
+its cut, the interference relief along the tear, and the log-scale
+calendar of its deep minima. Section~\ref{sec:floor} states and proves
+the Fourier floor theorem, settles the fate of the calendar in the
+continuum limit, and computes the canonical floors in closed form.
+Section~\ref{sec:spectroscopy} reads the law backwards into a one-way
+spectroscopy with proven limits.
 Section~\ref{sec:prior} situates the object among its nearest neighbors.
 Section~\ref{sec:platform} describes the proposed platform and protocol;
 Section~\ref{sec:noise} the imperfection analysis. Section~\ref{sec:discussion}
 discusses assumptions, limitations, open questions, and falsifiability. The
-certification details, the closed-form derivations, and the simulation
+certification details, the full proof of the floor theorem, the closed-form derivations, and the simulation
 parameters are provided as supplementary material in the repository
 accompanying this deposit.
 
@@ -1012,6 +1020,18 @@ phase first --- is conditional on that window.
 
 \section{Discussion and limitations}
 \label{sec:discussion}
+
+The additions of this version call for their own perimeter statement.
+Sections~\ref{sec:boundary}--\ref{sec:spectroscopy} are structural
+characterizations of the kernel as a mathematical object: machine-verified
+simulation throughout, one elementary hand proof whose ingredients are
+classical and labelled as such, and closed forms faced against the
+simulations to their last digits. None of it adds a physical claim. The
+log-periodic form is classical in the discrete-scale-invariance literature
+(Section~\ref{sec:dsi}); what we read as potentially new --- the
+hierarchy-free one-way route to it, and the jump-phase witness --- is
+stated with the hedge it deserves, and its arbitration belongs to external
+review, not to this deposit.
 
 \subsection{Modeling assumptions}
 

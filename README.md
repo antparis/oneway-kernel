@@ -29,6 +29,19 @@ deposit** — not a merge into the eml★ record.
 - eml★ paper (Zenodo): https://doi.org/10.5281/zenodo.20272784
 - eml★ software (Zenodo): https://doi.org/10.5281/zenodo.20273262
 
+## How to cite
+
+Paper (all versions, always resolves to the latest):
+https://doi.org/10.5281/zenodo.21195310
+
+Current version: **v2** (2026-07-10), DOI: https://doi.org/10.5281/zenodo.21286458
+(v1: 2026-07-04, DOI: https://doi.org/10.5281/zenodo.21195311)
+
+> MONNEROT, A. (2026). *When is anti-holomorphic dependence forced? Exchange
+> non-Hermiticity of one-way transfer kernels and a proposed time-domain test
+> in a recirculating fiber loop* (Version 2.0). Zenodo.
+> https://doi.org/10.5281/zenodo.21286458
+
 ## Layout
 
 - `paper/` — the manuscript (PDF + LaTeX source)

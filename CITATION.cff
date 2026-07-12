@@ -6,6 +6,16 @@ authors:
     given-names: "Anthony"
 type: software
 license: MIT
+doi: "10.5281/zenodo.21195310"
+version: "3.0"
+date-released: "2026-07-12"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.21195310"
+    description: "Concept DOI (resolves to the latest version)"
+  - type: doi
+    value: "10.5281/zenodo.21317960"
+    description: "Version 3.0 DOI"
 abstract: >-
   A theoretical and numerical study of when the anti-holomorphic dependence of a
   two-point transfer kernel is forced by open-system dynamics rather than

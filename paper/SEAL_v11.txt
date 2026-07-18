@@ -1,0 +1,7 @@
+SEAL v11 -- 2026-07-18
+f510cf18a2c79b07bbfdb131c2be168a328bf329b58f9eb9f2415a4615d6e85a  oneway_kernel_paper_v11.pdf
+a801936d3aeb791530fb68ae2485394f069adcedac26f4212d67c145aa2c92ee  oneway_kernel_paper_v11.tex
+d05cfe82f2d370376bef885b407c4756b0b7a3e1c2afeafdcf858ad59874f055  build_v11.py
+535816 oneway_kernel_paper_v11.pdf
+Title:           When is anti-holomorphic dependence forced? The one-way transfer kernel (v11)
+Pages:           21

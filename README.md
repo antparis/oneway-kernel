@@ -34,8 +34,8 @@ deposit** — not a merge into the eml★ record.
 Paper (all versions, always resolves to the latest):
 https://doi.org/10.5281/zenodo.21195310
 
-Current version: **v3** (2026-07-12), DOI: https://doi.org/10.5281/zenodo.21317960
-(v1: 2026-07-04, DOI: https://doi.org/10.5281/zenodo.21195311)
+Current version: **v11** (2026-07-18), DOI: https://doi.org/10.5281/zenodo.21431359
+(v3: 2026-07-12, DOI: https://doi.org/10.5281/zenodo.21317960; v1: 2026-07-04, DOI: https://doi.org/10.5281/zenodo.21195311)
 
 > MONNEROT, A. (2026). *When is anti-holomorphic dependence forced? Exchange
 > non-Hermiticity of one-way transfer kernels and a proposed time-domain test

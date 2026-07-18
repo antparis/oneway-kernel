@@ -7,12 +7,15 @@ authors:
 type: software
 license: MIT
 doi: "10.5281/zenodo.21195310"
-version: "3.0"
-date-released: "2026-07-12"
+version: "4.0 (paper v11)"
+date-released: "2026-07-18"
 identifiers:
   - type: doi
     value: "10.5281/zenodo.21195310"
     description: "Concept DOI (resolves to the latest version)"
+  - type: doi
+    value: "10.5281/zenodo.21431359"
+    description: "Version 4.0 DOI (paper v11, sealed 2026-07-18)"
   - type: doi
     value: "10.5281/zenodo.21317960"
     description: "Version 3.0 DOI"

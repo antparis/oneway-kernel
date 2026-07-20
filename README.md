@@ -14,11 +14,15 @@ two-point transfer kernel is *forced* by the underlying open-system dynamics,
 rather than removable by gauge, basis, or preparation. For two counter-winding
 mode ladders coupled unidirectionally (reservoir-engineered, Lindblad-type,
 per-pair Jordan structure), the transfer kernel sums to a closed form involving
-the Lerch transcendent in the product of conjugated coordinates. Reciprocity is
-equivalent to the existence of an exchange-Hermitian mirror partner of the
-kernel; one-way coupling deletes that partner. A recirculating-fiber-loop
-implementation and a time-domain measurement protocol are proposed, with a
-noise/imperfection analysis and explicit falsifiability criteria.
+the Lerch transcendent in the product of conjugated coordinates.
+Exchange-Hermiticity and physical reciprocity are independent invariants.
+Reciprocity is carried by `R = K - S(K)` evaluated on the complete matrix
+transfer kernel; the scalar surviving element can be exchange-symmetric even
+when the reverse matrix element vanishes. One-way coupling deletes the mirror
+partner and independently makes `R != 0` on the complete kernel. A
+recirculating-fiber-loop implementation and a time-domain measurement protocol
+are proposed, with a noise/imperfection analysis and explicit falsifiability
+criteria.
 
 ## Origin
 
@@ -39,8 +43,8 @@ Current version: **v11** (2026-07-18), DOI: https://doi.org/10.5281/zenodo.21431
 
 > MONNEROT, A. (2026). *When is anti-holomorphic dependence forced? Exchange
 > non-Hermiticity of one-way transfer kernels and a proposed time-domain test
-> in a recirculating fiber loop* (Version 3.0). Zenodo.
-> https://doi.org/10.5281/zenodo.21317960
+> in a recirculating fiber loop* (Version 4.0, paper v11). Zenodo.
+> https://doi.org/10.5281/zenodo.21431359
 
 ## Layout
 
